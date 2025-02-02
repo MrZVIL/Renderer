@@ -1,31 +1,38 @@
 #pragma once
-#include "Utils.h"
+#include "PrimitiveColor.h"
+#include <tuple>
 
 namespace renderer::image {
 
 class Color {
 public:
-  using color_value_type = uint8_t;
-  using scale_type = float;
-
   Color() = default;
-  Color(color_value_type value);
+  Color(PrimitiveColor::primitive_color_value_type red_value,
+        PrimitiveColor::primitive_color_value_type green_value,
+        PrimitiveColor::primitive_color_value_type blue_value);
 
-  Color &set_color(color_value_type new_value);
-  color_value_type get_color_value();
+  Color &set_color(PrimitiveColor::primitive_color_value_type red_value,
+                   PrimitiveColor::primitive_color_value_type green_value,
+                   PrimitiveColor::primitive_color_value_type blue_value);
+  Color &clean_color();
 
   Color operator+(const Color &rhs);
   Color operator-(const Color &rhs);
-  Color operator*(scale_type scale);
-  Color operator/(scale_type scale);
+  Color operator*(PrimitiveColor::scale_type scale);
+  Color operator/(PrimitiveColor::scale_type scale);
 
   Color &operator+=(const Color &rhs);
   Color &operator-=(const Color &rhs);
-  Color &operator*=(scale_type scale);
-  Color &operator/=(scale_type scale);
+  Color &operator*=(PrimitiveColor::scale_type scale);
+  Color &operator/=(PrimitiveColor::scale_type scale);
+
+  std::tuple<PrimitiveColor::primitive_color_value_type,
+             PrimitiveColor::primitive_color_value_type,
+             PrimitiveColor::primitive_color_value_type>
+  as_tuple();
 
 private:
-  color_value_type value;
+  PrimitiveColor red_, blue_, green_;
 };
 
 } // namespace renderer::image
