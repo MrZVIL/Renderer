@@ -1,32 +1,52 @@
 #pragma once
-
 #include "../Image/Color.h"
-#include "Point.h"
-#include <tuple>
+#include "../Linalg.h"
+#include <array>
 
-namespace renderer::object {
+namespace renderer {
 class Triangle {
 public:
-  using coordinates_vector_type = Point::coordinates_vector_type;
-  using transformation_matrix_type = Point::transformation_matrix_type;
+  using Point = Vector3;
+  Triangle(std::array<Point, 3> vertexes, std::array<Vector3, 3> normals,
+           std::array<Color, 3> colors);
 
-  Triangle() = default;
-  Triangle(Point first_point, Point second_point, Point third_point,
-           image::Color average_color);
+  Vector3 calculate_normal_at(Vector2 proj_point) const;
+  Color get_color_at(Vector2 proj_point) const;
 
-  coordinates_vector_type calculate_normal() const;
-  image::Color get_average_color() const;
+  Vector3 calculate_normal_by_baroc_coords(
+      const std::array<scale_type, 3> &bc_coords) const;
+  Color
+  get_color_by_baroc_coords(const std::array<scale_type, 3> &bc_coords) const;
 
-  Triangle &transform_with_matrix(
-      const transformation_matrix_type &transformation_matrix);
-  Triangle get_transformed_with_matrix(
-      const transformation_matrix_type &transformation_matrix) const;
+  Triangle &transform_with_matrix(const Matrix4 &transformation_matrix);
+  Triangle
+  get_transformed_with_matrix(const Matrix4 &transformation_matrix) const;
+
+  std::array<scale_type, 3>
+  get_barocentric_coordinates(Vector2 proj_point) const;
+
+  bool is_in_projection(Vector2 proj_point) const;
+  bool is_in_projection_by_baroc_coords(
+      const std::array<scale_type, 3> &bc_coords) const;
+
+  scale_type z_by_proj(Vector2 proj_point) const;
+  scale_type
+  z_by_baroc_coords(const std::array<scale_type, 3> &bc_coords) const;
+
+  const std::array<Point, 3> &vertexes() const;
 
 private:
-  // TODO: explore the possibility of using pointers instead of values
-  std::tuple<Point, Point, Point> vertexes_;
-  // TODO: make triangle color less primitive
-  image::Color average_color_;
+  static scale_type area2D(Vector2 ab, Vector2 ac);
+  static scale_type cross2D(Vector2 ab, Vector2 ac);
+
+  scale_type f01(Vector2 v) const;
+  scale_type f12(Vector2 v) const;
+  scale_type f20(Vector2 v) const;
+
+  std::array<Point, 3> vertexes_;
+  std::array<Vector3, 3> normals_;
+  std::array<Color, 3> colors_;
+  static constexpr scale_type eps = 1e-8;
 };
 
-} // namespace renderer::object
+} // namespace renderer

@@ -1,38 +1,46 @@
 #pragma once
-#include "PrimitiveColor.h"
+#include <cassert>
+#include <cstdint>
+#include <limits>
 #include <tuple>
 
-namespace renderer::image {
+namespace renderer {
 
 class Color {
+
 public:
+  using base_color_type = uint8_t;
+  using scale_type = float;
+
   Color() = default;
-  Color(PrimitiveColor::primitive_color_value_type red_value,
-        PrimitiveColor::primitive_color_value_type green_value,
-        PrimitiveColor::primitive_color_value_type blue_value);
+  static Color RGB(base_color_type red, base_color_type green,
+                   base_color_type blue);
 
-  Color &set_color(PrimitiveColor::primitive_color_value_type red_value,
-                   PrimitiveColor::primitive_color_value_type green_value,
-                   PrimitiveColor::primitive_color_value_type blue_value);
-  Color &clean_color();
+  Color &set_rgb(base_color_type red, base_color_type green,
+                 base_color_type blue);
 
-  Color operator+(const Color &rhs);
-  Color operator-(const Color &rhs);
-  Color operator*(PrimitiveColor::scale_type scale);
-  Color operator/(PrimitiveColor::scale_type scale);
+  Color operator+(const Color &rhs) const;
+  Color operator*(scale_type scale) const;
 
   Color &operator+=(const Color &rhs);
-  Color &operator-=(const Color &rhs);
-  Color &operator*=(PrimitiveColor::scale_type scale);
-  Color &operator/=(PrimitiveColor::scale_type scale);
+  Color &operator*=(scale_type scale);
 
-  std::tuple<PrimitiveColor::primitive_color_value_type,
-             PrimitiveColor::primitive_color_value_type,
-             PrimitiveColor::primitive_color_value_type>
-  as_tuple();
+  base_color_type &red();
+  base_color_type red() const;
+  base_color_type &green();
+  base_color_type green() const;
+  base_color_type &blue();
+  base_color_type blue() const;
 
 private:
-  PrimitiveColor red_, blue_, green_;
+  base_color_type red_ = 0;
+  base_color_type blue_ = 0;
+  base_color_type green_ = 0;
+
+  static base_color_type sum_base_colors(const base_color_type c1,
+                                         const base_color_type c2);
+  static base_color_type prod_base_color(const base_color_type c,
+                                         const scale_type scale);
 };
 
-} // namespace renderer::image
+} // namespace renderer

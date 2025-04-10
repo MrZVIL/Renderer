@@ -1,65 +1,35 @@
 #include "Image.h"
 
-namespace renderer::image {
-Image::Image(size_type width, size_type height)
-    : width_(width), height_(height), matrix_(height, row_type(width)) {}
+namespace renderer {
+Image::Image(Width width, Height height) {
+  assert((static_cast<index_type>(width) > 0) && "Invalid image width");
+  assert((static_cast<index_type>(height) > 0) && "Invalid image height");
+  width_ = static_cast<index_type>(width);
+  height_ = static_cast<index_type>(height);
+  data_.resize(width_ * height_);
+}
 
 Image &Image::clean_image() {
-  for (size_type i = 0; i < height_; ++i)
-    for (size_type j = 0; j < width_; ++j) {
-      matrix_[i][j].clean_color();
-    }
-
-  return *this;
-}
-
-Image &Image::set_pixel(size_type column, size_type row, Color new_color) {
-  check_height_and_width(row, column);
-  matrix_[row][column] = new_color;
-
-  return *this;
-}
-
-Image &
-Image::set_pixel(size_type column, size_type row,
-                 PrimitiveColor::primitive_color_value_type red_value,
-                 PrimitiveColor::primitive_color_value_type blue_value,
-                 PrimitiveColor::primitive_color_value_type green_value) {
-  check_height_and_width(row, column);
-  matrix_[row][column].set_color(red_value, blue_value, green_value);
-
-  return *this;
-}
-
-Image::size_type Image::get_height() { return this->height_; }
-Image::size_type Image::get_width() { return this->width_; }
-
-Color Image::get_pixel(size_type column, size_type row) {
-  check_height_and_width(row, column);
-  return this->matrix_[row][column];
-}
-
-void Image::output_image_to_bmp(char *path) {
-  using namespace cimg_library;
-
-  CImg<PrimitiveColor::primitive_color_value_type> output_image(width_, height_,
-                                                                1, 3, 0);
-  for (size_type i = 0; i < height_; ++i)
-    for (size_type j = 0; j < width_; ++j) {
-      std::tuple pixel_as_tuple = matrix_[i][j].as_tuple();
-      output_image(j, i, 0) = std::get<0>(pixel_as_tuple);
-      output_image(j, i, 1) = std::get<1>(pixel_as_tuple);
-      output_image(j, i, 2) = std::get<2>(pixel_as_tuple);
-    }
-
-  output_image.save(path);
-}
-
-void Image::check_height_and_width(size_type x, size_type y) {
-  if (x >= height_ || y >= width_) {
-    throw std::invalid_argument(std::string("Invalid pixel coordinates: (") +
-                                std::to_string(x) + std::string(", ") +
-                                std::to_string(y) + std::string(")"));
+  for (Color &pixel : data_) {
+    pixel.set_rgb(0, 0, 0);
   }
+
+  return *this;
 }
-} // namespace renderer::image
+
+Color &Image::operator()(index_type col, index_type row) {
+  assert(are_indices_correct(row, col) && "Invalid indices");
+  return data_[row * width_ + col];
+}
+const Color &Image::operator()(index_type col, index_type row) const {
+  assert(are_indices_correct(row, col) && "Invalid indices");
+  return data_[row * width_ + col];
+}
+
+Image::index_type Image::get_height() const { return height_; }
+Image::index_type Image::get_width() const { return width_; }
+
+bool Image::are_indices_correct(index_type x, index_type y) const {
+  return (0 <= x && x <= height_) && (0 <= y && y <= width_);
+}
+} // namespace renderer
