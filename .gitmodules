@@ -2,3 +2,6 @@
 [submodule "external/eigen"]
 	path = external/eigen
 	url = https://gitlab.com/libeigen/eigen
+[submodule "InteractiveApp/external"]
+	path = InteractiveApp/external
+	url = git@github.com:DimaTrushin/Library.git

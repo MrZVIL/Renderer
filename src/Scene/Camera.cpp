@@ -12,11 +12,42 @@ Camera::Camera(Point origin, Vector3 gaze_dir, Vector3 view_up_dir,
   assert((screen_width > 0) && "Invalid screen width: should be positive");
   assert((screen_height > 0) && "Invalid screen heigth: should be positive");
 
-  gaze_dir_ = gaze_dir;
-  view_up_dir_ = view_up_dir;
+  gaze_dir_ = gaze_dir.normalized();
+  view_up_dir_ =
+      (view_up_dir - gaze_dir_ * gaze_dir_.dot(view_up_dir)).normalized();
   dist_to_screen_ = dist_to_screen;
   screen_height_ = screen_height;
   screen_width_ = screen_width;
+}
+
+void Camera::move_along_local_z(length_type dist) {
+  origin_ += gaze_dir_ * dist;
+}
+
+void Camera::move_along_local_y(length_type dist) {
+  origin_ += view_up_dir_ * dist;
+}
+
+void Camera::move_along_local_x(length_type dist) {
+  origin_ += gaze_dir_.cross(view_up_dir_).normalized() * dist;
+}
+
+void Camera::rotate_along_local_z(angle_type angle) {
+  Rotation rotation(angle, gaze_dir_);
+  view_up_dir_ = rotation * view_up_dir_;
+  view_up_dir_.normalize();
+}
+void Camera::rotate_along_local_y(angle_type angle) {
+  Rotation rotation(angle, view_up_dir_);
+  gaze_dir_ = rotation * gaze_dir_;
+  gaze_dir_.normalize();
+}
+void Camera::rotate_along_local_x(angle_type angle) {
+  Rotation rotation(angle, gaze_dir_.cross(view_up_dir_));
+  gaze_dir_ = rotation * gaze_dir_;
+  gaze_dir_.normalize();
+  view_up_dir_ = rotation * view_up_dir_;
+  view_up_dir_.normalize();
 }
 
 const Camera::Point &Camera::origin() const { return origin_; }

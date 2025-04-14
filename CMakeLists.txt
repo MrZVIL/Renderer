@@ -1,3 +1,4 @@
+cmake_minimum_required(VERSION 3.31)
 project(test)
 
 include_directories(external/eigen)
@@ -8,7 +9,7 @@ set(Boost_USE_MULTITHREADED ON)
 set(CMAKE_CXX_FLAGS "-std=c++20 -O3 -Wall")
 
 set(SRC_LIST src/Image/Color.cpp src/Image/Image.cpp src/Image/BMPWriter.cpp src/Object/Triangle.cpp 
-    src/Object/Object.cpp src/Scene/Camera.cpp src/Scene/World.cpp src/Renderer/Renderer.cpp test.cpp)
+    src/Object/Object.cpp src/Scene/Camera.cpp src/Scene/World.cpp src/Renderer/Renderer.cpp test2.cpp)
 
 add_executable(${PROJECT_NAME} ${SRC_LIST})
 target_include_directories(${PROJECT_NAME} PRIVATE ${CMAKE_SOURCE_DIR}/external)

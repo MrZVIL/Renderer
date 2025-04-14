@@ -53,13 +53,8 @@ Color Triangle::get_color_by_baroc_coords(
 Triangle &
 Triangle::transform_with_matrix(const Matrix4 &transformation_matrix) {
   for (int i = 0; i < 3; ++i) {
-    normals_[i] =
-        (transformation_matrix * (vertexes_[i] + normals_[i]).homogeneous())
-            .hnormalized();
     vertexes_[i] =
         (transformation_matrix * (vertexes_[i]).homogeneous()).hnormalized();
-    normals_[i] -= vertexes_[i];
-    normals_[i].normalize();
   }
 
   return *this;

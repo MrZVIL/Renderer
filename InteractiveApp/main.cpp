@@ -1,20 +1,12 @@
-#include "src/Image/BMPWriter.h"
-#include "src/Image/Image.h"
-#include "src/Object/Object.h"
-#include "src/Object/Triangle.h"
-#include "src/Renderer/Renderer.h"
-#include "src/Scene/Camera.h"
-#include "src/Scene/World.h"
-#include <chrono>
+#include "controller.h"
+#include "model.h"
+#include "view.h"
+#include <QApplication>
+#include <QMainWindow>
 #include <iostream>
 
-using namespace renderer;
-
-void test_render() {
-  const char *path = "cube.bmp";
-  // Color red = Color::RGB(255, 0, 0);
-  // Color green = Color::RGB(0, 255, 0);
-  // Color blue = Color::RGB(0, 0, 255);
+renderer::Object generate_pyramid() {
+  using namespace renderer;
   Color gray = Color::RGB(128, 128, 128);
 
   Vector3 p1{-5, 5, -20};
@@ -62,24 +54,29 @@ void test_render() {
                  {gray, gray, gray});
   Object::container_type cont = {tr_t1, tr_t2, tr_b1, tr_b2, tr_l1, tr_l2,
                                  tr_r1, tr_r2, tr_n1, tr_n2, tr_f1, tr_f2};
-  renderer::Object obj{cont, {0, 0, 0}, {1, 0, 0}, {0, 1, 0}, {0, 0, 1}};
-  // Object obj{{tr124}, {0, 0, 0}, {1, 0, 0}, {0, 1, 0}, {0, 0, 1}};
-  renderer::World world{};
-  world.add_new_object((renderer::Object)obj);
-  renderer::Camera camera{{10, -10, 0}, {-0.7, 1, -1}, {0, 1, 0}, 1, 2, 2};
-  Renderer renderer(Width(512), Height(512));
-  Image img = renderer.render(world, camera);
-  auto start = std::chrono::high_resolution_clock::now();
-  int frames_count = 120;
-  for (int i = 0; i < frames_count; ++i) {
-    img = renderer.render(world, camera);
-  }
-  auto end = std::chrono::high_resolution_clock::now();
-  std::chrono::duration<double, std::milli> duration = end - start;
-  std::cout << "Время отрисовки " << frames_count
-            << " кадров: " << duration.count() << " миллисекунд" << std::endl;
-  BmpWriter bmpwriter(path);
-  bmpwriter.write(img);
+  return renderer::Object{cont, {0, 0, 0}, {1, 0, 0}, {0, 1, 0}, {0, 0, 1}};
 }
 
-int main() { test_render(); }
+int main(int argc, char **argv) {
+  std::cout << "Start" << std::endl;
+  QApplication app(argc, argv);
+  using namespace InteractiveApp;
+  // InteractiveApp::Application app(argc, argv);
+  Model model_(Model::Renderer(renderer::Width(1024), renderer::Height(512)),
+               Model::Camera{{0, 0, 0}, {0, 0, -1}, {0, 1, 0}, 1, 2, 1},
+               Model::World());
+  View view_{};
+  Controller ctrl_(&model_);
+  view_.subscribe(ctrl_.port());
+  std::cout << "Show" << std::endl;
+  model_.world().add_new_object(generate_pyramid());
+  model_.subscribe(view_.port());
+
+  QMainWindow window;
+
+  window.resize(1024, 512);
+  window.setCentralWidget(&view_);
+  window.show();
+
+  return app.exec();
+}

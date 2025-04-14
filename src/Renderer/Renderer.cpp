@@ -107,14 +107,19 @@ Image Renderer::rasterization(const primitives_container &primitives) {
       }
       std::array bc_coords = primitives[z_buffer_[col * height_ + row].second]
                                  .get_barocentric_coordinates({col, row});
-      Color clear_color = primitives[z_buffer_[col * height_ + row].second]
-                              .get_color_by_baroc_coords(bc_coords);
-      Vector3 normal = primitives[z_buffer_[col * height_ + row].second]
-                           .calculate_normal_by_baroc_coords(bc_coords);
-      img(col, row) =
-          shadeColorByAngle(clear_color, normal,
-                            {static_cast<float>(col), static_cast<float>(row),
-                             z_buffer_[col * height_ + row].first});
+      if (primitives[z_buffer_[col * height_ + row].second]
+              .is_in_projection_by_baroc_coords(bc_coords)) {
+        Color clear_color = primitives[z_buffer_[col * height_ + row].second]
+                                .get_color_by_baroc_coords(bc_coords);
+        Vector3 normal = primitives[z_buffer_[col * height_ + row].second]
+                             .calculate_normal_by_baroc_coords(bc_coords);
+        img(col, row) =
+            shadeColorByAngle(clear_color, normal,
+                              {static_cast<float>(col), static_cast<float>(row),
+                               z_buffer_[col * height_ + row].first});
+      } else {
+        img(col, row) = Color::RGB(0, 0, 0);
+      }
       // primitives[z_buffer_[col * height_ + row].second].get_color_at(
       //     {col, row});
       // std::cout << (int)primitives[0].is_in_projection({col, row}) <<
