@@ -1,9 +1,0 @@
-/home/ilya/Documents/Renderer/InteractiveApp/CMakeFiles/App.dir
-/home/ilya/Documents/Renderer/InteractiveApp/CMakeFiles/edit_cache.dir
-/home/ilya/Documents/Renderer/InteractiveApp/CMakeFiles/rebuild_cache.dir
-/home/ilya/Documents/Renderer/InteractiveApp/CMakeFiles/list_install_components.dir
-/home/ilya/Documents/Renderer/InteractiveApp/CMakeFiles/install.dir
-/home/ilya/Documents/Renderer/InteractiveApp/CMakeFiles/install/local.dir
-/home/ilya/Documents/Renderer/InteractiveApp/CMakeFiles/install/strip.dir
-/home/ilya/Documents/Renderer/InteractiveApp/CMakeFiles/App_autogen_timestamp_deps.dir
-/home/ilya/Documents/Renderer/InteractiveApp/CMakeFiles/App_autogen.dir
