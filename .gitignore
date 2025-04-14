@@ -30,3 +30,7 @@
 *.exe
 *.out
 *.app
+
+InteractiveApp/.qtcreator/
+InteractiveApp/App_autogen/
+InteractiveApp/CMakeFiles/

@@ -1,6 +1,6 @@
 #pragma once
 #include "../src/Renderer/Renderer.h"
-#include "MyObservable.h"
+#include "external/Observer2/Observer.h"
 
 namespace InteractiveApp {
 enum CameraMove {
