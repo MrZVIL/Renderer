@@ -5,9 +5,8 @@
 
 using namespace renderer;
 
-void test_render() {
+void test_render(std::string obj_path) {
   const char *path = "teapot.bmp";
-  std::string obj_path = "teapot.obj";
   ObjReader objreader(obj_path);
   renderer::Object obj = objreader.read();
   // Object obj{{tr124}, {0, 0, 0}, {1, 0, 0}, {0, 1, 0}, {0, 0, 1}};
@@ -29,4 +28,10 @@ void test_render() {
   bmpwriter.write(img);
 }
 
-int main() { test_render(); }
+int main(int argc, char *argv[]) {
+  if (argc < 2) {
+    std::cout << "Нужен obj файл" << std::endl;
+  } else {
+    test_render(argv[1]);
+  }
+}

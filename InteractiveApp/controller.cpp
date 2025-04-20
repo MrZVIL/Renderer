@@ -1,5 +1,4 @@
 #include "controller.h"
-#include <iostream>
 
 namespace InteractiveApp {
 Controller::Controller(ModelPtr ptr)

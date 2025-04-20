@@ -1,5 +1,4 @@
 #include "model.h"
-#include <iostream>
 
 namespace InteractiveApp {
 Model::Model(Renderer &&renderer, Camera &&camera, World &&world)
@@ -11,9 +10,7 @@ Model::Model(Renderer &&renderer, Camera &&camera, World &&world)
       last_image_(renderer::Width(1), renderer::Height(1)) {}
 
 void Model::subscribe(ImageObserverPtr ptr) {
-  std::cout << "uwu" << std::endl;
   image_observable_.subscribe(ptr);
-  std::cout << "uwu" << std::endl;
 }
 
 void Model::handleCameraMove(CameraMove camera_move) {

@@ -1,15 +1,11 @@
 #include "view.h"
-#include <iostream>
 
 namespace InteractiveApp {
 View::View(QWidget *parent)
-    : QLabel(parent), state_observer_(
-                          [this](Data &&data) {
-                            std::cout << "uwu" << std::endl;
-                            draw_data(std::move(data));
-                          },
-                          [this](Data &&data) { draw_data(std::move(data)); },
-                          [this](Data &&data) { draw_data(std::move(data)); }),
+    : QLabel(parent),
+      state_observer_([this](Data &&data) { draw_data(std::move(data)); },
+                      [this](Data &&data) { draw_data(std::move(data)); },
+                      [this](Data &&data) { draw_data(std::move(data)); }),
       key_observable_{[this]() { return std::move(this->key_action_); }} {
   setFocusPolicy(Qt::StrongFocus);
 }

@@ -22,7 +22,6 @@ enum CameraMove {
 class Model {
 public:
   using Image = renderer::Image;
-  // using Data = std::optional<Image>;
   using Renderer = renderer::Renderer;
   using Camera = renderer::Camera;
   using World = renderer::World;
