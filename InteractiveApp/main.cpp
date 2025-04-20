@@ -54,7 +54,7 @@ renderer::Object generate_pyramid() {
                  {gray, gray, gray});
   Object::container_type cont = {tr_t1, tr_t2, tr_b1, tr_b2, tr_l1, tr_l2,
                                  tr_r1, tr_r2, tr_n1, tr_n2, tr_f1, tr_f2};
-  return renderer::Object{cont, {0, 0, 0}, {1, 0, 0}, {0, 1, 0}, {0, 0, 1}};
+  return renderer::Object{cont};
 }
 
 int main(int argc, char **argv) {

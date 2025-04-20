@@ -41,7 +41,7 @@ private:
   World world_;
   Image last_image_;
 
-  constexpr static float rotation_angle_ = M_PI / 30.0;
-  constexpr static float move_distance_ = 1;
+  constexpr static float rotation_angle_ = M_PI / 300;
+  constexpr static float move_distance_ = 0.4;
 };
 } // namespace InteractiveApp

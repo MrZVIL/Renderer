@@ -1,5 +1,5 @@
 #include "Renderer.h"
-// #include <iostream>
+#include <iostream>
 
 namespace renderer {
 Renderer::Renderer(Width width, Height height) {
@@ -200,6 +200,12 @@ void Renderer::update_z_buffer_with_triangle(const Triangle &triangle,
       std::min({vertexes[0].y(), vertexes[1].y(), vertexes[2].y()}));
   index_type y_max = static_cast<index_type>(
       std::max({vertexes[0].y(), vertexes[1].y(), vertexes[2].y()}));
+
+  x_min = std::max(x_min, static_cast<index_type>(0));
+  y_min = std::max(y_min, static_cast<index_type>(0));
+
+  x_max = std::min(x_max, width_ - 1);
+  y_max = std::min(y_max, height_ - 1);
 
   for (index_type x = x_min; x <= x_max; ++x) {
     for (index_type y = y_min; y <= y_max; ++y) {

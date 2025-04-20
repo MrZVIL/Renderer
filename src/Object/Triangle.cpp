@@ -86,7 +86,8 @@ bool Triangle::is_in_projection(Vector2 proj_point) const {
 
 bool Triangle::is_in_projection_by_baroc_coords(
     const std::array<scale_type, 3> &bc_coords) const {
-  return (bc_coords[0] > 0 && bc_coords[1] > 0 && bc_coords[2] > 0);
+  return (bc_coords[0] > 0 && bc_coords[1] > 0 && bc_coords[2] > 0) &&
+         (bc_coords[0] <= 1 && bc_coords[1] <= 1 && bc_coords[2] <= 1);
 }
 
 scale_type Triangle::z_by_proj(Vector2 proj_point) const {

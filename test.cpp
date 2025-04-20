@@ -36,8 +36,7 @@ void test_render() {
   Triangle tr234({p2, p3, p4}, {normal234, normal234, normal234},
                  {gray, gray, gray});
 
-  renderer::Object obj{
-      {tr123, tr124, tr134, tr234}, {0, 0, 0}, {1, 0, 0}, {0, 1, 0}, {0, 0, 1}};
+  renderer::Object obj{{tr123, tr124, tr134, tr234}};
   // Object obj{{tr124}, {0, 0, 0}, {1, 0, 0}, {0, 1, 0}, {0, 0, 1}};
   renderer::World world{};
   world.add_new_object((renderer::Object)obj);

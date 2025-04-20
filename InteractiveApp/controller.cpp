@@ -19,7 +19,6 @@ void Controller::on_key_data(KeyData &&key_data) {
 void Controller::on_key_action(KeyAction act) {
   switch (act) {
   case Qt::Key::Key_W:
-    std::cout << "key_w" << std::endl;
     model_->handleCameraMove(CameraMove::MoveForward);
     break;
   case Qt::Key::Key_S:
@@ -43,10 +42,10 @@ void Controller::on_key_action(KeyAction act) {
   case Qt::Key::Key_Q:
     model_->handleCameraMove(CameraMove::RotateLeft);
     break;
-  case Qt::Key::Key_Shift:
+  case Qt::Key::Key_C:
     model_->handleCameraMove(CameraMove::RotateClockwise);
     break;
-  case Qt::Key::Key_Control:
+  case Qt::Key::Key_V:
     model_->handleCameraMove(CameraMove::RotateAntiClocwise);
     break;
   case Qt::Key::Key_R:

@@ -58,7 +58,6 @@ void Model::handleCameraMove(CameraMove camera_move) {
   default:
     break;
   }
-
   image_observable_.notify();
 }
 

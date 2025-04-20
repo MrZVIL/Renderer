@@ -62,7 +62,7 @@ void test_render() {
                  {gray, gray, gray});
   Object::container_type cont = {tr_t1, tr_t2, tr_b1, tr_b2, tr_l1, tr_l2,
                                  tr_r1, tr_r2, tr_n1, tr_n2, tr_f1, tr_f2};
-  renderer::Object obj{cont, {0, 0, 0}, {1, 0, 0}, {0, 1, 0}, {0, 0, 1}};
+  renderer::Object obj{cont};
   // Object obj{{tr124}, {0, 0, 0}, {1, 0, 0}, {0, 1, 0}, {0, 0, 1}};
   renderer::World world{};
   world.add_new_object((renderer::Object)obj);

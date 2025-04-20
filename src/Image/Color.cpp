@@ -1,4 +1,5 @@
 #include "Color.h"
+#include <iostream>
 
 namespace renderer {
 Color Color::RGB(base_color_type red, base_color_type green,
