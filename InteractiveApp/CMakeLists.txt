@@ -1,7 +1,5 @@
 cmake_minimum_required(VERSION 3.16)
 
-#set(CMAKE_PREFIX_PATH "/home/ilya/Qt/5.15.2/gcc_64/lib/cmake/Qt5")
-
 project(App VERSION 0.1 LANGUAGES CXX)
 
 set(CMAKE_AUTOUIC ON)
@@ -9,7 +7,6 @@ set(CMAKE_AUTOMOC ON)
 set(CMAKE_AUTORCC ON)
 
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
-set(CMAKE_CXX_FLAGS_RELEASE "-fpermissive -O3 -march=native -flto -ffast-math -fomit-frame-pointer")
 set(CMAKE_BUILD_TYPE Release)
 
 include_directories(external/Observer2)
@@ -25,13 +22,10 @@ set(PROJECT_SOURCES
         controller.cpp
 )
 
-set(SRC_LIST ../src/Image/Color.cpp ../src/Image/Image.cpp ../src/Image/BMPWriter.cpp ../src/Object/Triangle.cpp 
-../src/Object/Object.cpp ../src/Object/ObjReader.cpp ../src/Scene/Camera.cpp ../src/Scene/World.cpp ../src/Renderer/Renderer.cpp)
-
 if(${QT_VERSION_MAJOR} GREATER_EQUAL 6)
     qt_add_executable(App
         MANUAL_FINALIZATION
-        ${SRC_LIST} ${PROJECT_SOURCES}
+        ${PROJECT_SOURCES}
     )
 # Define target properties for Android with Qt 6 as:
 #    set_property(TARGET App APPEND PROPERTY QT_ANDROID_PACKAGE_SOURCE_DIR
@@ -40,13 +34,13 @@ if(${QT_VERSION_MAJOR} GREATER_EQUAL 6)
 else()
     if(ANDROID)
         add_library(App SHARED
-            ${SRC_LIST} ${PROJECT_SOURCES}
+            ${PROJECT_SOURCES}
         )
 # Define properties for Android with Qt 5 after find_package() calls as:
 #    set(ANDROID_PACKAGE_SOURCE_DIR "${CMAKE_CURRENT_SOURCE_DIR}/android")
     else()
         add_executable(App
-            ${SRC_LIST} ${PROJECT_SOURCES}
+            ${PROJECT_SOURCES}
         )
     endif()
 endif()
@@ -77,3 +71,5 @@ install(TARGETS App
 if(QT_VERSION_MAJOR EQUAL 6)
     qt_finalize_executable(App)
 endif()
+
+target_link_libraries(${PROJECT_NAME} PRIVATE Renderer)

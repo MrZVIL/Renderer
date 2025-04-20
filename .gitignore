@@ -5,7 +5,6 @@
 *.slo
 *.lo
 *.o
-*.obj
 
 # Precompiled Headers
 *.gch
@@ -31,6 +30,12 @@
 *.out
 *.app
 
-InteractiveApp/.qtcreator/
-InteractiveApp/App_autogen/
-InteractiveApp/CMakeFiles/
+*.qtcreator/
+*App_autogen/
+*CMakeFiles/
+*CMakeCache.txt
+
+*.cmake
+build
+Makefile
+*.bmp

@@ -18,7 +18,7 @@ int main(int argc, char **argv) {
   Controller ctrl_(&model_);
   view_.subscribe(ctrl_.port());
   std::cout << "Show" << std::endl;
-  renderer::ObjReader obj_reader("../teapot.obj");
+  renderer::ObjReader obj_reader("../Tests/teapot.obj");
   model_.world().add_new_object(obj_reader.read());
   model_.subscribe(view_.port());
 

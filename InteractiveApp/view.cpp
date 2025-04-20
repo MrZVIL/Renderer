@@ -2,7 +2,7 @@
 #include <iostream>
 
 namespace InteractiveApp {
-View::View(QWidget *parent = nullptr)
+View::View(QWidget *parent)
     : QLabel(parent), state_observer_(
                           [this](Data &&data) {
                             std::cout << "uwu" << std::endl;

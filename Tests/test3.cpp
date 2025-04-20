@@ -1,11 +1,4 @@
-#include "src/Image/BMPWriter.h"
-#include "src/Image/Image.h"
-#include "src/Object/ObjReader.h"
-#include "src/Object/Object.h"
-#include "src/Object/Triangle.h"
-#include "src/Renderer/Renderer.h"
-#include "src/Scene/Camera.h"
-#include "src/Scene/World.h"
+#include "renderer_include.h"
 #include <chrono>
 #include <iostream>
 #include <string>

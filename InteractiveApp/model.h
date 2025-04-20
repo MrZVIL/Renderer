@@ -1,6 +1,6 @@
 #pragma once
-#include "../src/Renderer/Renderer.h"
 #include "external/Observer2/Observer.h"
+#include "renderer_include.h"
 
 namespace InteractiveApp {
 enum CameraMove {
@@ -41,7 +41,7 @@ private:
   World world_;
   Image last_image_;
 
-  constexpr static float rotation_angle_ = M_PI / 300;
+  constexpr static float rotation_angle_ = M_PI / 120;
   constexpr static float move_distance_ = 0.4;
 };
 } // namespace InteractiveApp

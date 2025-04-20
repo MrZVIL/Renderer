@@ -1,6 +1,6 @@
 #pragma once
-#include "../src/Image/Image.h"
 #include "external/Observer2/Observer.h"
+#include "renderer_include.h"
 #include <QKeyEvent>
 #include <QLabel>
 
