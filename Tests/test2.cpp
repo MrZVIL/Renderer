@@ -12,9 +12,6 @@ using namespace renderer;
 
 void test_render() {
   const char *path = "cube.bmp";
-  // Color red = Color::RGB(255, 0, 0);
-  // Color green = Color::RGB(0, 255, 0);
-  // Color blue = Color::RGB(0, 0, 255);
   Color gray = Color::RGB(128, 128, 128);
 
   Vector3 p1{-5, 5, -20};
@@ -63,7 +60,6 @@ void test_render() {
   Object::container_type cont = {tr_t1, tr_t2, tr_b1, tr_b2, tr_l1, tr_l2,
                                  tr_r1, tr_r2, tr_n1, tr_n2, tr_f1, tr_f2};
   renderer::Object obj{cont};
-  // Object obj{{tr124}, {0, 0, 0}, {1, 0, 0}, {0, 1, 0}, {0, 0, 1}};
   renderer::World world{};
   world.add_new_object((renderer::Object)obj);
   renderer::Camera camera{{10, -10, 0}, {-0.7, 1, -1}, {0, 1, 0}, 1, 2, 2};

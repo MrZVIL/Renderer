@@ -27,8 +27,6 @@ public:
   const length_type &screen_width() const;
   const length_type &screen_height() const;
 
-  // TODO: Methods to move camera
-
 private:
   Point origin_{0, 0, 0};
   Vector3 gaze_dir_{0, 0, -1};

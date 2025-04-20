@@ -21,8 +21,6 @@ Image Renderer::render(const World &world, const Camera &camera) {
 
 Renderer::primitives_container Renderer::clipping(const World &world,
                                                   const Camera &camera) const {
-  // TODO
-
   primitives_container primitives{};
   for (const Object &obj : world.objects()) {
     for (const Triangle &triangle : obj.triangles()) {
@@ -120,74 +118,12 @@ Image Renderer::rasterization(const primitives_container &primitives) {
       } else {
         img(col, row) = Color::RGB(0, 0, 0);
       }
-      // primitives[z_buffer_[col * height_ + row].second].get_color_at(
-      //     {col, row});
-      // std::cout << (int)primitives[0].is_in_projection({col, row}) <<
-      // std::endl;
     }
   }
 
   clear_z_buffer();
-  // clear_visited();
   return img;
 }
-
-// void Renderer::update_z_buffer_with_triangle(const Triangle &triangle,
-//                                              const index_type index) {
-//   const std::array vertexes = triangle.vertexes();
-//   Vector3 mid = vertexes[0] * (1 / 3.0) + vertexes[1] * (1 / 3.0) +
-//                 vertexes[2] * (1 / 3.0);
-//   std::queue<std::pair<index_type, index_type>> order;
-//   order.push(
-//       {static_cast<index_type>(mid[0]), static_cast<index_type>(mid[1])});
-
-//   while (!order.empty()) {
-//     std::pair<index_type, index_type> pixel_index = order.front();
-//     pixel_index.first =
-//         std::min(std::max((index_type)0, pixel_index.first), width_ - 1);
-//     pixel_index.second =
-//         std::min(std::max((index_type)0, pixel_index.second), height_ - 1);
-//     Vector2 proj_point{pixel_index.first, pixel_index.second};
-//     order.pop();
-
-//     scale_type depth = triangle.z_by_proj(proj_point);
-//     if (depth < 0 &&
-//         depth >
-//             z_buffer_[pixel_index.first * height_ +
-//             pixel_index.second].first) {
-//       z_buffer_[pixel_index.first * height_ + pixel_index.second] = {depth,
-//                                                                      index};
-//       // std::cout << pixel_index.first << " " << pixel_index.second <<
-//       // std::endl;
-//     }
-
-//     for (std::pair<index_type, index_type> shift : shifts) {
-//       Vector2 new_proj_point = proj_point;
-//       new_proj_point[0] += shift.first;
-//       new_proj_point[1] += shift.second;
-//       std::pair<index_type, index_type> new_coords = {
-//           static_cast<index_type>(new_proj_point[0]),
-//           static_cast<index_type>(new_proj_point[1])};
-//       new_coords.first =
-//           std::min(std::max((index_type)0, new_coords.first), width_ - 1);
-//       new_coords.second =
-//           std::min(std::max((index_type)0, new_coords.second), height_ - 1);
-//       if (visited_[new_coords.first * height_ + new_coords.second] != index
-//       &&
-//           triangle.is_in_projection(new_proj_point)) {
-//         // std::cout << new_proj_point.transpose() << " " <<
-//         // new_coords
-//         //     .first
-//         //           << " " << new_coords.second << " "
-//         //           << triangle.is_in_projection(
-//         //                  {new_coords.first, new_coords.second})
-//         //           << std::endl;
-//         order.push(new_coords);
-//       }
-//       visited_[new_coords.first * height_ + new_coords.second] = index;
-//     }
-//   }
-// }
 
 void Renderer::update_z_buffer_with_triangle(const Triangle &triangle,
                                              const index_type index) {

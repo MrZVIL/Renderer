@@ -12,9 +12,6 @@ using namespace renderer;
 
 void test_render() {
   const char *path = "pyramid.bmp";
-  // Color red = Color::RGB(255, 0, 0);
-  // Color green = Color::RGB(0, 255, 0);
-  // Color blue = Color::RGB(0, 0, 255);
   Color gray = Color::RGB(128, 128, 128);
 
   Vector3 p1{0, 1.5, -15};
@@ -37,7 +34,6 @@ void test_render() {
                  {gray, gray, gray});
 
   renderer::Object obj{{tr123, tr124, tr134, tr234}};
-  // Object obj{{tr124}, {0, 0, 0}, {1, 0, 0}, {0, 1, 0}, {0, 0, 1}};
   renderer::World world{};
   world.add_new_object((renderer::Object)obj);
   renderer::Camera camera{{0, 0, 0}, {0, 0, -1}, {0, 1, 0}, 1, 2, 1};

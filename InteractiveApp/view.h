@@ -28,7 +28,7 @@ private:
   StateObserver state_observer_;
   KeyObservable key_observable_;
 
-  KeyAction key_action_; // sorry
+  KeyAction key_action_;
 };
 
 } // namespace InteractiveApp

@@ -9,7 +9,6 @@ void test_render(std::string obj_path) {
   const char *path = "teapot.bmp";
   ObjReader objreader(obj_path);
   renderer::Object obj = objreader.read();
-  // Object obj{{tr124}, {0, 0, 0}, {1, 0, 0}, {0, 1, 0}, {0, 0, 1}};
   renderer::World world{};
   world.add_new_object((renderer::Object)obj);
   renderer::Camera camera{{0, 0, 3}, {0, 0, -1}, {0, 1, 0}, 1, 2, 2};
